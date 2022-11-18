@@ -94,7 +94,7 @@ public class GiftCardUI extends UI {
         updaterThread = Executors.newScheduledThreadPool(1).scheduleAtFixedRate(statusUpdater, 1000,
                                                                                 5000, TimeUnit.MILLISECONDS);
         setPollInterval(1000);
-        getSession().getSession().setMaxInactiveInterval(30);
+        getSession().getSession().setMaxInactiveInterval(900);
         addDetachListener((DetachListener) detachEvent -> {
             logger.info("Closing UI");
             updaterThread.cancel(true);
