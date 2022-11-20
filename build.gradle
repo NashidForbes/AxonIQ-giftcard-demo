@@ -3,23 +3,32 @@
  */
 
 plugins {
+    id 'org.springframework.boot' version '2.7.5'
+    id 'io.spring.dependency-management' version '1.0.0.RELEASE'
     id 'java'
     id 'maven-publish'
     id 'org.jetbrains.kotlin.jvm' version '1.7.21'
 }
 
 repositories {
+    mavenCentral()
     mavenLocal()
     maven {
         url = uri('https://repo.maven.apache.org/maven2/')
     }
 }
 
+ext {
+    set('axonVersion', "4.6.0")
+}
+
 dependencies {
     implementation 'org.axonframework:axon-spring-boot-starter:4.6.2'
-    implementation 'org.springframework.boot:spring-boot-starter:2.7.5'
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.7.21'
-    implementation 'org.jetbrains.kotlin:kotlin-reflect:1.7.21'
+//    implementation 'org.springframework.boot:spring-boot-starter:2.7.5'
+    implementation 'org.axonframework:axon-spring-boot-starter'
+    implementation 'org.axonframework.extensions.kotlin:axon-kotlin'
+/*    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.7.21'
+    implementation 'org.jetbrains.kotlin:kotlin-reflect:1.7.21'*/
 /*    implementation platform('org.jetbrains.kotlin:kotlin-bom')*/
     implementation 'com.vaadin:vaadin-spring-boot-starter:3.2.1'
     implementation 'com.vaadin:vaadin-push:8.14.3'
@@ -44,6 +53,12 @@ publishing {
         maven(MavenPublication) {
             from(components.java)
         }
+    }
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.axonframework:axon-bom:${axonVersion}"
     }
 }
 
